@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tha Game Website</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Code Entry Modal -->
+  <div id="code-modal" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;">
+    <div style="background:#fff;padding:2em 2em 1.5em 2em;border-radius:10px;box-shadow:0 2px 16px #0008;min-width:300px;text-align:center;">
+      <h2>Enter Access Code</h2>
+      <input id="code-input" type="password" maxlength="12" style="font-size:1.2em;padding:0.5em;width:80%;margin-bottom:1em;" autofocus />
+      <div>
+        <button id="code-submit" style="font-size:1em;padding:0.5em 1.5em;">Enter</button>
+      </div>
+      <div id="code-error" style="color:red;margin-top:0.5em;display:none;">Incorrect code. Try again.</div>
+    </div>
+  </div>
+
+  <header style="display:none">
+    <h1>Tha Game Website</h1>
+    <p>hey guys! welcome to tha game website! heres some notes, don't refreash the page, if you do, then yur force to put in the code again, injoy your games!</p>
+  </header>
+
+  <main style="display:none">
+    <section id="games-list" class="card">
+      <h2>Available Games</h2>
+      <div id="games"></div>
+    </section>
+
+    <section id="play-area" class="card">
+      <h2>Play Area</h2>
+      <div id="player">
+        <p>No game loaded. Click "Play" to start a game.</p>
+      </div>
+    </section>
+  </main>
+
+
+  <footer style="display:none">
+    <small>`.</small>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script>
+    // Code entry logic
+    const CODE = "012312";
+    const modal = document.getElementById('code-modal');
+    const input = document.getElementById('code-input');
+    const submit = document.getElementById('code-submit');
+    const error = document.getElementById('code-error');
+    function unlockSite() {
+      modal.style.display = 'none';
+      document.querySelector('header').style.display = '';
+      document.querySelector('main').style.display = '';
+      document.querySelector('footer').style.display = '';
+    }
+    submit.onclick = function() {
+      if(input.value === CODE) {
+        unlockSite();
+      } else {
+        error.style.display = 'block';
+        input.value = '';
+        input.focus();
+      }
+    };
+    input.addEventListener('keydown', function(e) {
+      if(e.key === 'Enter') submit.onclick();
+    });
+    window.addEventListener('DOMContentLoaded', function() {
+      input.focus();
+    });
+  </script>
+</body>
+</html>
